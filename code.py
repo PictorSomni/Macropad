@@ -100,23 +100,28 @@ last_encoder_switch = macropad.encoder_switch_debounced.pressed
 app_index = 0
 apps[app_index].switch()
 
-def rainbow_cycle():
-    for j in range(255):
-        for i in range(12):
-            rc_index = (i * 256 // 12) + j
-            macropad.pixels[i] = colorwheel(rc_index & 255)
-        macropad.pixels.show()
-
 step = 0
 
 # MAIN LOOP ----------------------------
 
 while True:
+
+    # Disable NeoPixels ---------------
+    # macropad.pixels.fill((0, 0, 0))
+    # macropad.pixels.show()
+    # ---------------------------------
+
+
+
+    # RAINBOW ! -----------------------
     step += 1
     for pixel in range(12):
         color = (pixel * 256 // 12) + step
         macropad.pixels[pixel] = colorwheel(color & 255)
     macropad.pixels.show()
+    # ---------------------------------
+
+
 
     # Read encoder position. If it's changed, switch apps.
     position = macropad.encoder
